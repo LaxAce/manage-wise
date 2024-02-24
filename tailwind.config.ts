@@ -23,6 +23,8 @@ const config: Config = {
           "3E3F4E": "#3E3F4E",
           "828FA3": "#828FA3",
           "E4EBFA": "#E4EBFA",
+          "2B2C3720": "#2B2C3720",
+          "364E7E1A": "#364E7E1A",
         },
         white: {
           "F4F7FD": "#F4F7FD",

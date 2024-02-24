@@ -9,7 +9,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
             </div>
             <div className="w-full">
                 <NavBar />
-                <div className="bg-white-F4F7FD w-full h-svh pt-[62px] sm:pt-[80px] md:pt-[89px]">
+                <div className="bg-white-F4F7FD dark:bg-black-20212C duration-500 w-full h-svh pt-[62px] sm:pt-[80px] md:pt-[89px]">
                     {children}
                 </div>
             </div>

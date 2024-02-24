@@ -22,6 +22,7 @@
 body {
   font-weight: 700;
   scroll-behavior: smooth;
+  color: var(--theme-000112);
   /* font-family: 'Playfair Display', serif;
   font-family: 'Plus Jakarta Sans', sans-serif; */
 }
@@ -89,4 +90,8 @@ body {
 .disabled {
   background-color: #1f85e561 !important;
   cursor: not-allowed;
+}
+
+.task-card-wrapper:hover h6 {
+  color: var(--theme-635FC7);
 }

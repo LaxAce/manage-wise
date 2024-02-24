@@ -10,7 +10,7 @@ const SideBar = () => {
 
     return (
         <aside className="menu-wrapper">
-            <div className={`${isSideBarOpen ? "hidden sm:block sm:w-[260px] md:w-[300px]" : "!w-0 opacity-0 invisible"} z-10 pt-8 border-r dark:bg-gray-2B2C37 bg-white-FFFFFF duration-500 border-gray-E4EBFA h-svh relative`}>
+            <div className={`${isSideBarOpen ? "hidden sm:block sm:w-[260px] md:w-[300px]" : "!w-0 opacity-0 invisible"} z-10 pt-8 border-r dark:bg-gray-2B2C37 bg-white-FFFFFF duration-500 border-gray-E4EBFA dark:border-gray-3E3F4E h-svh relative`}>
                 {isSideBarOpen && (<div className=" delay-300">
                     <div className="px-[34px] pb-5">
                         <Logo />
