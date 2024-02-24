@@ -6,6 +6,7 @@
 
 :root {
   --theme-635FC7: #635FC7;
+  --theme-635FC71A: #635FC71A;
   --theme-A8A4FF: #A8A4FF;
   --theme-000112: #000112;
   --theme-20212C: #20212C;
@@ -39,7 +40,42 @@ body {
   fill: var(--theme-635FC7);
 }
 
-/* dkdkdkdkkd */
+.hide-hover:hover,
+.menu-hover li:hover,
+.hide-hover-dark:hover,
+.menu-hover-dark li:hover {
+  background-color: var(--theme-635FC71A);
+  border-top-right-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+  cursor: pointer;
+}
+
+.hide-hover-dark:hover
+.menu-hover-dark li:hover {
+  background-color: var(--theme-FFFFFF);
+}
+
+.hide-hover:hover span,
+.hide-hover-dark:hover span,
+.menu-hover li:hover span,
+.menu-hover-dark li:hover span {
+  color: var(--theme-635FC7);
+}
+
+.hide-hover:hover svg *,
+.menu-hover li:hover svg *,
+.hide-hover-dark:hover svg *,
+.menu-hover-dark li:hover svg * {
+  fill: var(--theme-635FC7);
+}
+
+.hide-hover:hover,
+.hide-hover-dark:hover {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  width: 92%;
+}
+
 
 .RadioInput {
   height: 18px;
@@ -50,6 +86,10 @@ body {
   cursor: pointer;
   transition: all 0.5s ease;
   background-color: #635FC7;
+}
+
+.RadioInput:hover {
+  background-color: #A8A4FF;
 }
 
 .Knob {
