@@ -11,9 +11,25 @@ export interface ModalProps {
     onClose?: () => void;
     customPosition?: string;
     centerContent?: boolean;
+    isFullScreen?: boolean;
     children: React.ReactNode;
 }
 
 export interface ThemeSwitcherProps {
     isBig?: boolean;
+}
+
+export interface CheckBoxProps {
+    label?: string;
+    value?: boolean;
+    onChange?: (value: boolean) => void;
+}
+
+export interface DropdownProps {
+    value?: string;
+    options?: { 
+        label: string;
+        value: string;
+    }[];
+    onChange?: (value: any) => void;
 }

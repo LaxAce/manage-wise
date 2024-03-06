@@ -4,9 +4,17 @@ export interface ISubTasks {
         completed: number;
         total: number;
     };
+    onClick: () => void;
 }
 
 export interface ITaskColumn {
     title: string;
     items: ITaskCard[];
+}
+
+export interface ITaskDetails {
+    currentTaskId: any;
+    displayTask: boolean;
+    setCurrentTaskId: (value: any) => void;
+    setDisplayTask: (value: boolean) => void;
 }

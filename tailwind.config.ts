@@ -13,6 +13,7 @@ const config: Config = {
         violet: {
           "635FC7": "#635FC7",
           "A8A4FF": "#A8A4FF",
+          "635FC740": "#635FC740",
         },
         black: {
           "000112": "#000112",
@@ -25,6 +26,7 @@ const config: Config = {
           "E4EBFA": "#E4EBFA",
           "2B2C3720": "#2B2C3720",
           "364E7E1A": "#364E7E1A",
+          "828FA33F": "#828FA33F"
         },
         white: {
           "F4F7FD": "#F4F7FD",
