@@ -33,3 +33,14 @@ export interface DropdownProps {
     }[];
     onChange?: (value: any) => void;
 }
+
+export interface ContextMenuProps {
+    children: React.ReactNode;
+    showOptions: boolean;
+    options: {
+        label: string;
+        onClick: () => void;
+        isDestructive?: boolean;
+    }[];
+    setShowOptions: (value: boolean) => void;
+}

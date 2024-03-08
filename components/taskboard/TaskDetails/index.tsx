@@ -3,8 +3,9 @@
 import { useState } from "react";
 
 import { Options } from "@icons";
-import { CheckBox, Dropdown, Modal } from "@components/common";
+import { Button, CheckBox, Dropdown, Modal } from "@components/common";
 import { ITaskDetails } from "@components/taskboard/types";
+import ContextMenu from "@components/common/ContextMenu";
 
 const sub = [
     {
@@ -46,6 +47,8 @@ const options = [
 
 const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTaskId }: ITaskDetails) => {
     const [currentStatus, setCurrentStatus] = useState("Doing");
+    const [showOptions, setShowOptions] = useState(false);
+
 
     return (
         <Modal
@@ -58,9 +61,28 @@ const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTas
             <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
                     <h3 className="text-lg leading-[23px] max-w-[387px] dark:text-white-FFFFFF">{currentTaskId}</h3>
-                    <div className="w-[30px] flex justify-end">
+                    <ContextMenu
+                        showOptions={showOptions}
+                        setShowOptions={setShowOptions}
+                        options={[
+                            {
+                                label: "Edit Task",
+                                onClick: () => {
+                                    setShowOptions(false);
+                                }
+                            },
+                            {
+                                label: "Delete Task",
+                                onClick: () => {
+                                    setShowOptions(false);
+                                },
+                                isDestructive: true
+                            }
+
+                        ]}
+                    >
                         <Options />
-                    </div>
+                    </ContextMenu>
                 </div>
 
                 <p className="text-[13px] leading-[23px] font-medium text-gray-828FA3">

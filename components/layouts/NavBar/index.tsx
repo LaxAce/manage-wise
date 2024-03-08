@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import { HiPlusSm } from "react-icons/hi";
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
 
 import { MobileLogo, Options } from "@icons";
 import useGeneralStore from "@store/general";
-import { Button, Modal } from "@components/common";
+import { Button, Logo } from "@components/common";
 import MobileNav from "@components/layouts/NavBar/MobileNav";
+import ContextMenu from "@components/common/ContextMenu";
 
 const NavBar = () => {
     const isSideBarOpen = useGeneralStore(state => state.isSideBarOpen);
     const [isOpen, setIsOpen] = useState(false);
+    const [showOptions, setShowOptions] = useState(false);
 
     const handleClick = () => {
         setIsOpen(!isOpen);
@@ -25,6 +27,10 @@ const NavBar = () => {
                         <MobileLogo />
                     </div>
 
+                    {!isSideBarOpen && (<div className="hidden relative sm:block mr-12 after:absolute after:h-[90px] after:top-[-37px] md:after:top-[-33px] after:right-[-32px] after:w-[1px] after:bg-gray-E4EBFA after:dark:bg-gray-3E3F4E">
+                        <Logo />
+                    </div>)}
+
                     <div className="flex items-center gap-2">
                         <h1 className="text-[18px] sm:text-2xl dark:text-white-FFFFFF duration-500 font-bold">Platform Launch</h1>
                         <Button onClick={handleClick} variant="neutral" className="sm:hidden">
@@ -37,7 +43,23 @@ const NavBar = () => {
                     <Button variant="primary" size="large" >
                         + Add New Task
                     </Button>
-                    <Options />
+                    <ContextMenu
+                        showOptions={showOptions}
+                        setShowOptions={setShowOptions}
+                        options={[
+                            {
+                                label: "Edit Board",
+                                onClick: () => { }
+                            },
+                            {
+                                label: "Delete Board",
+                                onClick: () => { },
+                                isDestructive: true
+                            }
+                        ]}
+                    >
+                        <Options />
+                    </ContextMenu>
                 </div>
 
                 <div className="flex sm:hidden items-center gap-6">
