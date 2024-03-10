@@ -43,4 +43,5 @@ export interface ContextMenuProps {
         isDestructive?: boolean;
     }[];
     setShowOptions: (value: boolean) => void;
+    position?: "left" | "right" | "center";
 }

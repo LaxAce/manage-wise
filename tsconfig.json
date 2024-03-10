@@ -26,6 +26,7 @@
       "@styles/*": ["styles/*"],
       "@assets/*": ["assets/*"],
       "@providers": ["providers"],
+      "@constants/*": ["constants/*"],
       "@components/*": ["components/*"],
     }
   },

@@ -4,11 +4,11 @@ import { useState } from "react";
 import { HiPlusSm } from "react-icons/hi";
 import { FaChevronDown } from 'react-icons/fa';
 
-import { MobileLogo, Options } from "@icons";
+import { MobileLogo } from "@icons";
 import useGeneralStore from "@store/general";
 import { Button, Logo } from "@components/common";
 import MobileNav from "@components/layouts/NavBar/MobileNav";
-import ContextMenu from "@components/common/ContextMenu";
+import NavContextMenu from "@components/layouts/NavBar/NavContextMenu";
 
 const NavBar = () => {
     const isSideBarOpen = useGeneralStore(state => state.isSideBarOpen);
@@ -43,30 +43,14 @@ const NavBar = () => {
                     <Button variant="primary" size="large" >
                         + Add New Task
                     </Button>
-                    <ContextMenu
-                        showOptions={showOptions}
-                        setShowOptions={setShowOptions}
-                        options={[
-                            {
-                                label: "Edit Board",
-                                onClick: () => { }
-                            },
-                            {
-                                label: "Delete Board",
-                                onClick: () => { },
-                                isDestructive: true
-                            }
-                        ]}
-                    >
-                        <Options />
-                    </ContextMenu>
+                    <NavContextMenu showOptions={showOptions} setShowOptions={setShowOptions}/>
                 </div>
 
                 <div className="flex sm:hidden items-center gap-6">
                     <Button variant="primary" size="extraSmall" className="!text-[18px]">
                         <HiPlusSm size={"28px"} />
                     </Button>
-                    <Options />
+                    <NavContextMenu showOptions={showOptions} setShowOptions={setShowOptions}/>
                 </div>
             </div>
 

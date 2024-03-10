@@ -3,9 +3,11 @@
 import { useState } from "react";
 
 import { Options } from "@icons";
-import { Button, CheckBox, Dropdown, Modal } from "@components/common";
-import { ITaskDetails } from "@components/taskboard/types";
+import { EPosition } from "@constants/enums";
 import ContextMenu from "@components/common/ContextMenu";
+import { ITaskDetails } from "@components/taskboard/types";
+import useWindowDimensions from "@hooks/useWindowDimensions";
+import { CheckBox, Dropdown, Modal } from "@components/common";
 
 const sub = [
     {
@@ -46,9 +48,9 @@ const options = [
 ]
 
 const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTaskId }: ITaskDetails) => {
-    const [currentStatus, setCurrentStatus] = useState("Doing");
+    const { isMobile } = useWindowDimensions();
     const [showOptions, setShowOptions] = useState(false);
-
+    const [currentStatus, setCurrentStatus] = useState("Doing");
 
     return (
         <Modal
@@ -62,6 +64,7 @@ const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTas
                 <div className="flex justify-between items-center mb-6">
                     <h3 className="text-lg leading-[23px] max-w-[387px] dark:text-white-FFFFFF">{currentTaskId}</h3>
                     <ContextMenu
+                        position={isMobile ? EPosition.LEFT : EPosition.CENTER}
                         showOptions={showOptions}
                         setShowOptions={setShowOptions}
                         options={[
