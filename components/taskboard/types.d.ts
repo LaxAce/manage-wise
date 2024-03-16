@@ -18,3 +18,8 @@ export interface ITaskDetails {
     setCurrentTaskId: (value: any) => void;
     setDisplayTask: (value: boolean) => void;
 }
+
+export interface IAddNewTask {
+    showModal: boolean;
+    setShowModal: (value: boolean) => void;
+}

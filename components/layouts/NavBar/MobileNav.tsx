@@ -5,12 +5,13 @@ import { Board } from "@icons";
 const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
     return (
         <Modal
+            noPadding
             isOpen={isOpen}
-            centerContent={false}
-            customPosition="top-[90px]"
-            className="w-[80%] rounded-lg"
             onClose={onClose}
             isFullScreen={false}
+            centerContent={false}
+            customPosition="top-[90px]"
+            className="!w-[80%] rounded-lg"
         >
             <div className={`menu-wrapper z-10 pt-4 duration-500 relative`}>
                 <p className="pl-6 mb-[19px] text-xs font-bold leading-normal tracking-[2.4px] text-gray-828FA3">ALL BOARDS (3)</p>

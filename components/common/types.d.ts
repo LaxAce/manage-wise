@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 
 export interface RadioInputProps {
     value: boolean;
@@ -6,12 +7,17 @@ export interface RadioInputProps {
 }
 
 export interface ModalProps {
+    header?: {
+        left?: string;
+        right?: any;
+    };
     isOpen: boolean;
     className?: string;
+    noPadding?: boolean;
     onClose?: () => void;
+    isFullScreen?: boolean;
     customPosition?: string;
     centerContent?: boolean;
-    isFullScreen?: boolean;
     children: React.ReactNode;
 }
 
@@ -27,7 +33,7 @@ export interface CheckBoxProps {
 
 export interface DropdownProps {
     value?: string;
-    options?: { 
+    options?: {
         label: string;
         value: string;
     }[];
@@ -44,4 +50,16 @@ export interface ContextMenuProps {
     }[];
     setShowOptions: (value: boolean) => void;
     position?: "left" | "right" | "center";
+}
+
+export interface InputProps {
+    id?: string;
+    rows?: number;
+    type?: string;
+    value?: string;
+    label?: string;
+    className?: string;
+    icon?: ReactElement;
+    placeholder?: string;
+    onChange?: (value: any) => void;
 }

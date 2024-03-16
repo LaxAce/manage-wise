@@ -26,7 +26,8 @@ const config: Config = {
           "E4EBFA": "#E4EBFA",
           "2B2C3720": "#2B2C3720",
           "364E7E1A": "#364E7E1A",
-          "828FA33F": "#828FA33F"
+          "828FA33F": "#828FA33F",
+          "828FA340": "#828FA340", // rgba(130, 143, 163, 0.25)
         },
         white: {
           "F4F7FD": "#F4F7FD",
