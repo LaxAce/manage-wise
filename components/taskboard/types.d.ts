@@ -13,13 +13,20 @@ export interface ITaskColumn {
 }
 
 export interface ITaskDetails {
-    currentTaskId: any;
     displayTask: boolean;
+    currentTaskId: string;
     setCurrentTaskId: (value: any) => void;
     setDisplayTask: (value: boolean) => void;
 }
 
-export interface IAddNewTask {
+export interface ITaskForm {
     showModal: boolean;
+    currentTaskId?: string;
+    setShowModal: (value: boolean) => void;
+}
+
+export interface IBoardForm {
+    showModal: boolean;
+    currentBoardId?: string;
     setShowModal: (value: boolean) => void;
 }

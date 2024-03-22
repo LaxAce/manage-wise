@@ -18,6 +18,7 @@ export interface ModalProps {
     isFullScreen?: boolean;
     customPosition?: string;
     centerContent?: boolean;
+    leftHeaderClass?: string;
     children: React.ReactNode;
 }
 
@@ -33,10 +34,12 @@ export interface CheckBoxProps {
 
 export interface DropdownProps {
     value?: string;
+    label?: string;
     options?: {
         label: string;
         value: string;
     }[];
+    position?: "top" | "bottom";
     onChange?: (value: any) => void;
 }
 
@@ -57,6 +60,7 @@ export interface InputProps {
     rows?: number;
     type?: string;
     value?: string;
+    error?: string;
     label?: string;
     className?: string;
     icon?: ReactElement;

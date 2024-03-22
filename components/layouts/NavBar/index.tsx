@@ -9,13 +9,14 @@ import useGeneralStore from "@store/general";
 import { Button, Logo } from "@components/common";
 import MobileNav from "@components/layouts/NavBar/MobileNav";
 import NavContextMenu from "@components/layouts/NavBar/NavContextMenu";
-import { AddNewTask } from "@components/taskboard";
+import { TaskForm, BoardForm, DeleteBoard } from "@components/taskboard";
 
 const NavBar = () => {
     const isSideBarOpen = useGeneralStore(state => state.isSideBarOpen);
     const [isOpen, setIsOpen] = useState(false);
-    const [showOptions, setShowOptions] = useState(false);
     const [addNewTask, setAddNewTask] = useState(false);
+    const [showBoardForm, setShowBoardForm] = useState(false);
+    const [showDeleteBoard, setShowDeleteBoard] = useState(false);
 
     const handleClick = () => {
         setIsOpen(!isOpen);
@@ -45,19 +46,21 @@ const NavBar = () => {
                     <Button onClick={() => setAddNewTask(true)} variant="primary" size="large" >
                         + Add New Task
                     </Button>
-                    <NavContextMenu showOptions={showOptions} setShowOptions={setShowOptions}/>
+                    <NavContextMenu setShowBoardForm={setShowBoardForm} setShowDeleteBoard={setShowDeleteBoard} />
                 </div>
 
                 <div className="flex sm:hidden items-center gap-6">
                     <Button onClick={() => setAddNewTask(true)} variant="primary" size="extraSmall" className="!text-[18px]">
                         <HiPlusSm size={"28px"} />
                     </Button>
-                    <NavContextMenu showOptions={showOptions} setShowOptions={setShowOptions}/>
+                    <NavContextMenu setShowBoardForm={setShowBoardForm} setShowDeleteBoard={setShowDeleteBoard} />
                 </div>
             </div>
 
             <MobileNav isOpen={isOpen} onClose={() => setIsOpen(false)} />
-            <AddNewTask showModal={addNewTask} setShowModal={setAddNewTask} />
+            <TaskForm showModal={addNewTask} setShowModal={setAddNewTask} />
+            <DeleteBoard showModal={showDeleteBoard} setShowModal={setShowDeleteBoard} currentBoardId="Platform Launch" />
+            <BoardForm showModal={showBoardForm} setShowModal={setShowBoardForm} currentBoardId="Platform Launch" />
         </div>
     );
 }

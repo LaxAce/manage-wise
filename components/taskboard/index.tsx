@@ -1,7 +1,10 @@
 export { default as TaskCard } from "./TaskCard";
+export { default as TaskForm } from "./TaskForm";
+export { default as BoardForm } from "./BoardForm";
 export { default as TaskBoard } from "./AddColumn";
 export { default as AddColumn } from "./AddColumn";
-export { default as AddNewTask } from "./AddNewTask";
 export { default as EmptyState } from "./EmptyState";
 export { default as TaskColumn } from "./TaskColumn";
+export { default as DeleteTask } from "./DeleteTask";
+export { default as DeleteBoard } from "./DeleteBoard";
 export { default as TaskDetails } from "./TaskDetails";

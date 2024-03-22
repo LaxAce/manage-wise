@@ -18,7 +18,6 @@ const Logo = () => {
         return null;
     }
 
-    // console.log('xxxxxx mounted', mounted )
     return (
         <>
             {isDarkTheme ? (<KBDarkThemeLogo />) : (<KanbanLogo />)}

@@ -135,3 +135,7 @@ body {
 .task-card-wrapper:hover h6 {
   color: var(--theme-635FC7);
 }
+
+.cancel-btn-wrapper:hover svg * {
+  fill: var(--theme-EA5555);
+}
