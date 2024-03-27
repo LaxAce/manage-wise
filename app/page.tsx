@@ -152,7 +152,7 @@ export default function Home() {
 
   return (
     <PageLayout>
-      <main className={`pt-6 pl-5 overflow-auto h-[calc(100svh-65px)] sm:h-[calc(100svh-81px)] md:h-[calc(100svh-89px)] ${isSideBarOpen ? "sm:w-[calc(100svw-250px)] md:w-[calc(100svw-300px)]" : "w-full"}`}>
+      <main className={`pt-6 pl-5 overflow-x-auto overflow-y-hidden sm:overflow-auto h-[calc(100svh-65px)] sm:h-[calc(100svh-81px)] md:h-[calc(100svh-89px)] ${isSideBarOpen ? "sm:w-[calc(100svw-250px)] md:w-[calc(100svw-300px)]" : "w-full"}`}>
         {data?.length ?
           (<div className="flex gap-6">
             {displayColumns(data)}

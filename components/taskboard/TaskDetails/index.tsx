@@ -3,12 +3,12 @@
 import { useState } from "react";
 
 import { Options } from "@icons";
-import { EContextMenuPosition } from "@constants/enums";
 import ContextMenu from "@components/common/ContextMenu";
 import { ITaskDetails } from "@components/taskboard/types";
 import { DeleteTask, TaskForm } from "@components/taskboard";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 import { CheckBox, Dropdown, Modal } from "@components/common";
+import { EContextMenuPosition, EDropdownPosition } from "@constants/enums";
 
 const sub = [
     {
@@ -68,7 +68,7 @@ const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTas
                     left: currentTaskId,
                     right: (
                         <ContextMenu
-                            position={EContextMenuPosition.LEFT}
+                            position={isMobile ? EContextMenuPosition.LEFT : EContextMenuPosition.CENTER}
                             showOptions={showOptions}
                             setShowOptions={setShowOptions}
                             options={[
@@ -123,6 +123,7 @@ const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTas
                         options={options}
                         value={currentStatus}
                         label={"Current Status"}
+                        position={EDropdownPosition.TOP}
                         onChange={(value) => setCurrentStatus(value.label)}
                     />
                 </div>

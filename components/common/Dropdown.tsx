@@ -33,7 +33,7 @@ const Dropdown = ({ label, value, options, onChange, position = EDropdownPositio
                     <ArrowDown />
                 </div>
 
-                {showOptions && options?.length ? (<div className={`absolute w-full dark:bg-black-20212C bg-white-FFFFFF flex flex-col gap-1 left-0 rounded-lg p-2 max-h-[117px] overflow-y-auto ${position === EDropdownPosition.TOP ? "top-[-120px]" : "top-11"}`}>
+                {showOptions && options?.length ? (<div className={`absolute w-full dark:bg-black-20212C bg-white-FFFFFF flex flex-col gap-1 left-0 rounded-lg p-2 max-h-[117px] overflow-y-auto shadow-2xl ${position === EDropdownPosition.TOP ? "top-[-120px]" : "top-11"}`}>
                     {options?.map((item, index) => {
 
                         return (
