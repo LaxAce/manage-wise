@@ -1,26 +1,20 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useEffect, useMemo, useState } from "react";
-
-import { KBDarkThemeLogo, KanbanLogo } from "@icons";
+import Link from "next/link";
 
 const Logo = () => {
-    const [mounted, setMounted] = useState(false);
-    const { theme } = useTheme();
-    const isDarkTheme = useMemo(() => Boolean(theme === "dark"), [theme]);
-
-    useEffect(() => {
-        setMounted(true);
-    }, [])
-
-    if (!mounted) {
-        return null;
-    }
-
     return (
         <>
-            {isDarkTheme ? (<KBDarkThemeLogo />) : (<KanbanLogo />)}
+            <Link href="/" className="flex items-center gap-3 relative z-10 group">
+                <div className="flex gap-1.5 items-end">
+                    <div className="w-1.5 h-6 bg-violet-635FC7 rounded-full group-hover:h-7 duration-200" />
+                    <div className="w-1.5 h-6 bg-violet-635FC7 rounded-full opacity-75 group-hover:h-5 duration-200 delay-75" />
+                    <div className="w-1.5 h-6 bg-violet-635FC7 rounded-full opacity-50 group-hover:h-4 duration-200 delay-100" />
+                </div>
+                <span className="hidden sm:flex text-xl font-bold dark:text-white-FFFFFF text-black-000112 group-hover:text-violet-635FC7 duration-200">
+                    Manage Wise
+                </span>
+            </Link>
         </>
     );
 }

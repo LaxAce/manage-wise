@@ -27,7 +27,7 @@ const config: Config = {
           "2B2C3720": "#2B2C3720",
           "364E7E1A": "#364E7E1A",
           "828FA33F": "#828FA33F",
-          "828FA340": "#828FA340", // rgba(130, 143, 163, 0.25)
+          "828FA340": "#828FA340",
         },
         white: {
           "F4F7FD": "#F4F7FD",
@@ -36,10 +36,33 @@ const config: Config = {
         red: {
           "EA5555": "#EA5555",
           "FF9898": "#FF9898",
-        }
-      }
-    }
+        },
+      },
+      keyframes: {
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(24px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "word-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "pulse-slow": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+      },
+      animation: {
+        "fade-up": "fade-up 0.6s ease forwards",
+        "word-in": "word-in 0.4s ease forwards",
+        "pulse-slow": "pulse-slow 2s ease-in-out infinite",
+      },
+      backdropBlur: {
+        xs: "2px",
+      },
+    },
   },
   plugins: [],
 };
+
 export default config;
