@@ -24,9 +24,9 @@ body {
   font-weight: 700;
   scroll-behavior: smooth;
   color: var(--theme-000112);
-  /* font-family: 'Playfair Display', serif;
-  font-family: 'Plus Jakarta Sans', sans-serif; */
 }
+
+/* ── Sidebar menu styles (existing) ── */
 
 .menu-wrapper .active-board svg * {
   fill: #fff;
@@ -76,6 +76,7 @@ body {
   width: 92%;
 }
 
+/* ── Radio toggle (existing) ── */
 
 .RadioInput {
   height: 18px;
@@ -110,7 +111,6 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Big Radio input */
 .RadioInput.big {
   height: 23px;
   width: 46px;
@@ -132,10 +132,82 @@ body {
   cursor: not-allowed;
 }
 
+/* ── Task card hover (existing) ── */
+
 .task-card-wrapper:hover h6 {
   color: var(--theme-635FC7);
 }
 
 .cancel-btn-wrapper:hover svg * {
   fill: var(--theme-EA5555);
+}
+
+/* ── Landing page ── */
+
+/* Hero word fade animation */
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-word-enter {
+  animation: word-in 0.4s ease forwards;
+}
+
+/* Staggered section fade-in */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.6s ease forwards;
+}
+
+.fade-up-delay-1 { animation-delay: 0.1s; }
+.fade-up-delay-2 { animation-delay: 0.2s; }
+.fade-up-delay-3 { animation-delay: 0.3s; }
+
+/* Backdrop blur fallback for older browsers */
+@supports not (backdrop-filter: blur(12px)) {
+  .backdrop-blur-md {
+    background-color: rgba(255, 255, 255, 0.97) !important;
+  }
+
+  .dark .backdrop-blur-md {
+    background-color: rgba(43, 44, 55, 0.97) !important;
+  }
+}
+
+/* Auth page input focus ring */
+.auth-input:focus {
+  border-color: var(--theme-635FC7);
+  box-shadow: 0 0 0 3px rgba(99, 95, 199, 0.1);
+}
+
+/* Password strength bar transition */
+.strength-bar {
+  transition: background-color 0.3s ease, width 0.3s ease;
+}
+
+/* Feature card hover lift */
+.feature-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(99, 95, 199, 0.12);
 }

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { HiPlusSm } from "react-icons/hi";
 import { FaChevronDown } from 'react-icons/fa';
 
-import { MobileLogo } from "@icons";
 import useGeneralStore from "@store/general";
 import { Button, Logo } from "@components/common";
 import MobileNav from "@components/layouts/NavBar/MobileNav";
@@ -27,7 +26,7 @@ const NavBar = () => {
             <div className={`${isSideBarOpen ? "left-0 sm:left-[260px] md:left-[300px]" : "left-0"} z-10 duration-500 absolute right-0 bg-white-FFFFFF dark:bg-gray-2B2C37 flex items-center justify-between py-4 md:py-5 px-4 sm:px-6 border-b border-gray-E4EBFA dark:border-gray-3E3F4E`}>
                 <div className="flex items-center gap-4">
                     <div className="sm:hidden">
-                        <MobileLogo />
+                        <Logo />
                     </div>
 
                     {!isSideBarOpen && (<div className="hidden relative sm:block mr-12 after:absolute after:h-[90px] after:top-[-37px] md:after:top-[-33px] after:right-[-32px] after:w-[1px] after:bg-gray-E4EBFA after:dark:bg-gray-3E3F4E">

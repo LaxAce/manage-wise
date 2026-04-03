@@ -16,6 +16,13 @@ interface ButtonProps {
     variant?: "primary" | "secondary" | "destructive" | "neutral";
 }
 
+const Spinner = () => (
+    <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+    </svg>
+);
+
 const Button = ({
     width,
     height,
@@ -26,8 +33,7 @@ const Button = ({
     isDisabled,
     size = "small",
     variant = "primary",
-}: ButtonProps
-) => {
+}: ButtonProps) => {
     const { resolvedTheme } = useTheme();
     const [hover, setHover] = useState(false);
     const [mounted, setMounted] = useState(false);
@@ -38,7 +44,7 @@ const Button = ({
     }, []);
 
     const styles = useMemo(() => ({
-        ...(isDisabled ? { opacity: "0.25", cursor: "not-allowed" } : {}),
+        ...(isDisabled || isLoading ? { opacity: "0.5", cursor: "not-allowed" } : {}),
 
         ...(size === "full" ? { width: "100%" } : {}),
         ...(size === "large" ? { height: "48px" } : {}),
@@ -61,12 +67,18 @@ const Button = ({
     return (
         <button
             style={styles}
-            onClick={() => onClick ? onClick() : {}}
+            disabled={isDisabled || isLoading}
+            onClick={() => (!isDisabled && !isLoading && onClick) ? onClick() : {}}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            className={`flex justify-center items-center rounded-3xl px-6 text-[15px] font-bold leading-normal text-white-FFFFFF ${className}`}
+            className={`flex justify-center items-center gap-2 rounded-3xl px-6 text-[15px] font-bold leading-normal text-white-FFFFFF ${className}`}
         >
-            {isLoading ? "Loading..." : children}
+            {isLoading ? (
+                <>
+                    <Spinner />
+                    <span>Loading...</span>
+                </>
+            ) : children}
         </button>
     );
 }

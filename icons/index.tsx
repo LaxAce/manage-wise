@@ -7,6 +7,8 @@ import ClosedEye from "@assets/svgs/ClosedEye.svg";
 import OpenedEye from "@assets/svgs/OpenedEye.svg";
 import MobileLogo from "@assets/svgs/MobileLogo.svg";
 import KanbanLogo from "@assets/svgs/KanbanLogo.svg";
+import OpenEyeSmall from "@assets/svgs/OpenEyeSmall.svg";
+import ClosedEyeSmall from "@assets/svgs/ClosedEyeSmall.svg";
 import KBDarkThemeLogo from "@assets/svgs/KBDarkThemeLogo.svg";
 
 export {
@@ -19,5 +21,7 @@ export {
     ArrowDown,
     MobileLogo,
     KanbanLogo,
+    OpenEyeSmall,
+    ClosedEyeSmall,
     KBDarkThemeLogo,
 }
