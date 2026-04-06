@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { InputProps } from "@components/common/types";
 import { ClosedEyeSmall, OpenEyeSmall } from "@icons";

@@ -1,26 +1,28 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 import AuthLayout from "@components/auth/AuthLayout";
+import { verifyEmail } from "app/server-actions/authActions";
 
 type VerifyState = "loading" | "success" | "error" | "expired";
 
-export default function VerifyEmailPage() {
-  // In real usage: params come from /verify/[id]/[unique_id] URL
-  const [state, setState] = useState<VerifyState>("loading");
-  const [isLoading, setIsLoading] = useState(false);
+export default async function VerifyEmailPage({ searchParams }: { searchParams: { [key: string]: string } }) {
+  const id = searchParams?.id ?? "";
+  const uniqueId = searchParams?.uniqueId ?? "";
+  let state: VerifyState = "loading";
 
-  useEffect(() => {
-    // Simulate verification attempt
-    const timer = setTimeout(() => {
-      // API integration goes here — call POST /verify-email with id & unique_id from URL
-      setState("success");
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  if (id && uniqueId) {
+    const res = await verifyEmail({ id, uniqueId });
+    if (res?.data) {
+      state = "success";
+    } else {
+      if (res?.message?.includes("expired")) {
+        state = "expired";
+      } else {
+        state = "error";
+      }
+    }
+  }
+
 
   const stateContent: Record<VerifyState, { icon: string; title: string; body: string }> = {
     loading: {
@@ -53,15 +55,14 @@ export default function VerifyEmailPage() {
         {state === "loading" ? (
           <div className="w-16 h-16 bg-violet-635FC7/10 rounded-full flex items-center justify-center">
             <svg className="animate-spin w-8 h-8 text-violet-635FC7" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
           </div>
         ) : (
-          <div className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl ${
-            state === "success" ? "bg-green-100 dark:bg-green-900/20" :
+          <div className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl ${state === "success" ? "bg-green-100 dark:bg-green-900/20" :
             "bg-red-EA5555/10"
-          }`}>
+            }`}>
             {content.icon}
           </div>
         )}
@@ -87,24 +88,6 @@ export default function VerifyEmailPage() {
             Register again
           </Link>
         )}
-
-        {/* Dev test buttons */}
-        <div className="flex gap-2 flex-wrap justify-center mt-4 pt-4 border-t border-gray-E4EBFA dark:border-gray-3E3F4E w-full">
-          <p className="w-full text-xs text-gray-828FA3 mb-1">Preview states:</p>
-          {(["loading", "success", "error", "expired"] as VerifyState[]).map((s) => (
-            <button
-              key={s}
-              onClick={() => setState(s)}
-              className={`text-xs px-3 py-1 rounded-full border ${
-                state === s
-                  ? "border-violet-635FC7 text-violet-635FC7"
-                  : "border-gray-828FA340 text-gray-828FA3"
-              }`}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
       </div>
     </AuthLayout>
   );
