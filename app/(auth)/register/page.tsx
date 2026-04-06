@@ -1,7 +1,9 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState } from "react";
 
+import { useRegister } from "@hooks/useAuth";
 import { Button, Input } from "@components/common";
 import AuthLayout from "@components/auth/AuthLayout";
 
@@ -13,8 +15,7 @@ export default function RegisterPage() {
     password: "",
   });
   const [errors, setErrors] = useState<Partial<typeof form>>({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const { mutateAsync: register, isPending, data: registerResult } = useRegister();
 
   const set = (key: keyof typeof form) => (value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -32,22 +33,21 @@ export default function RegisterPage() {
     return newErrors;
   };
 
-  const handleSubmit = () => {
-    const newErrors = validate();
-    if (Object.keys(newErrors).length) {
-      setErrors(newErrors);
-      return;
+  const handleSubmit = async () => {
+    try {
+      const newErrors = validate();
+      if (Object.keys(newErrors).length) {
+        setErrors(newErrors);
+        return;
+      }
+      setErrors({});
+      await register({ firstName: form?.firstName, lastName: form.lastName, email: form.email, password: form.password });
+    } catch (error: any) {
+      toast.error(error)
     }
-    setErrors({});
-    setIsLoading(true);
-    // API integration goes here
-    setTimeout(() => {
-      setIsLoading(false);
-      setSuccess(true);
-    }, 1500);
   };
 
-  if (success) {
+  if (registerResult) {
     return (
       <AuthLayout title="Check your inbox ✉️">
         <div className="text-center flex flex-col items-center gap-6">
@@ -122,7 +122,7 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        <Button onClick={handleSubmit} isLoading={isLoading}>
+        <Button onClick={handleSubmit} isLoading={isPending}>
           Create account
         </Button>
       </div>
