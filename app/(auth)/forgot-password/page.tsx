@@ -1,33 +1,34 @@
 "use client";
 
-import Link from "next/link";
+import { toast } from "sonner";
 import { useState } from "react";
 
 import { Button, Input } from "@components/common";
 import AuthLayout from "@components/auth/AuthLayout";
+import { useSendPasswordResetEmail } from "@hooks/useAuth";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [ sent, setSent] = useState(false);
+  const { mutateAsync: forgotPassword, isPending } = useSendPasswordResetEmail();
 
-  const handleSubmit = () => {
-    if (!email) {
-      setError("Email is required");
-      return;
-    }
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setError("Enter a valid email");
-      return;
-    }
-    setError("");
-    setIsLoading(true);
-    // API integration: POST /forgot_password { email }
-    setTimeout(() => {
-      setIsLoading(false);
+  const handleSubmit = async () => {
+    try {
+      if (!email) {
+        setError("Email is required");
+        return;
+      }
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        setError("Enter a valid email");
+        return;
+      }
+      await forgotPassword({ email })
+      setError("");
       setSent(true);
-    }, 1500);
+    } catch (error: any) {
+      toast.error(error)
+    }
   };
 
   if (sent) {
@@ -76,7 +77,7 @@ export default function ForgotPasswordPage() {
           error={error}
         />
 
-        <Button onClick={handleSubmit} isLoading={isLoading}>
+        <Button onClick={handleSubmit} isLoading={isPending}>
           Send reset link
         </Button>
       </div>

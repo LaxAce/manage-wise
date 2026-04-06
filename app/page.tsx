@@ -1,9 +1,10 @@
-"use client";
-
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
+import Title from "@components/common/Title";
+import { CookiesEnum } from "@constants/enums";
+import { logout } from "./server-actions/authActions";
 import { Logo, ThemeSwitcher } from "@components/common";
+import { getCookie } from "./server-actions/cookieActions";
 
 const features = [
   {
@@ -28,22 +29,9 @@ const features = [
   },
 ];
 
-const words = ["great", "unstoppable", "legendary", "remarkable", "powerful"];
 
-export default function LandingPage() {
-  const [wordIndex, setWordIndex] = useState(0);
-  const [visible, setVisible] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVisible(false);
-      setTimeout(() => {
-        setWordIndex((i) => (i + 1) % words.length);
-        setVisible(true);
-      }, 400);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
+export default async function LandingPage() {
+  const token = await getCookie(CookiesEnum.AUTH_TOKEN);
 
   return (
     <div className="min-h-screen bg-white-F4F7FD dark:bg-black-20212C duration-500 overflow-x-hidden">
@@ -56,12 +44,24 @@ export default function LandingPage() {
             <div className="hidden sm:block">
               <ThemeSwitcher />
             </div>
-            <Link
-              href="/login"
-              className="text-[13px] font-semibold text-gray-828FA3 hover:text-violet-635FC7 duration-200 px-4 py-2"
-            >
-              Log in
-            </Link>
+            {token ?
+              (
+                <form
+                  action={async () => {
+                    "use server";
+                    await logout();
+                  }}
+                  className="text-[13px] font-semibold text-gray-828FA3 hover:text-violet-635FC7 duration-200 px-4 py-2"
+                >
+                  <button>Logout</button>
+                </form>
+              ) :
+              (<Link
+                href="/login"
+                className="text-[13px] font-semibold text-gray-828FA3 hover:text-violet-635FC7 duration-200 px-4 py-2"
+              >
+                Log in
+              </Link>)}
             <Link
               href="/register"
               className="text-[13px] font-bold text-white-FFFFFF bg-violet-635FC7 hover:bg-violet-A8A4FF duration-200 px-5 py-2.5 rounded-full"
@@ -86,20 +86,7 @@ export default function LandingPage() {
             Your personal task command center
           </div>
 
-          <h1 className="text-[clamp(2.2rem,6vw,4.5rem)] font-bold leading-[1.1] dark:text-white-FFFFFF text-black-000112 mb-6">
-            If you did all you said
-            <br />
-            you would do today,{" "}
-            <br className="hidden sm:block" />
-            you will be{" "}
-            <span
-              className="text-violet-635FC7 inline-block transition-all duration-500"
-              style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(10px)" }}
-            >
-              {words[wordIndex]}
-            </span>{" "}
-            today.
-          </h1>
+          <Title />
 
           <p className="text-lg text-gray-828FA3 max-w-xl mx-auto leading-relaxed mb-10">
             Manage Wise is a Kanban-style task manager that helps you ship more,
@@ -113,12 +100,12 @@ export default function LandingPage() {
             >
               Start for free →
             </Link>
-            <Link
+            {!token && (<Link
               href="/login"
               className="text-[15px] font-bold text-violet-635FC7 bg-violet-635FC7/10 hover:bg-violet-635FC7/20 duration-200 px-8 py-4 rounded-full inline-flex items-center justify-center"
             >
               Log in to my account
-            </Link>
+            </Link>)}
           </div>
         </div>
 

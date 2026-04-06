@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 
 import Providers from "@providers";
+import Toaster from "@components/common/Toaster";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={plusJakartaSans.className}>
         <Providers>
+          <Toaster richColors position="top-right" />
           {children}
         </Providers>
       </body>
