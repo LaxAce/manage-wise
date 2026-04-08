@@ -3,6 +3,7 @@ export { default as TaskForm } from "./TaskForm";
 export { default as BoardForm } from "./BoardForm";
 export { default as TaskBoard } from "./AddColumn";
 export { default as AddColumn } from "./AddColumn";
+export { default as ColumnForm } from "./ColumnForm";
 export { default as EmptyState } from "./EmptyState";
 export { default as TaskColumn } from "./TaskColumn";
 export { default as DeleteTask } from "./DeleteTask";

@@ -7,7 +7,6 @@ import {
     LoginPayload,
     VerifyEmailPayload,
     ResetPasswordPayload,
-    FirebaseLoginPayload,
     SendVerificationEmailPayload,
 } from "app/server-actions/types";
 import { Client } from "@utils/client";
@@ -56,7 +55,6 @@ export const verifyEmail = async ({ id, uniqueId }: VerifyEmailPayload): Promise
         revalidatePath("/")
         return response;
     } catch (error: any) {
-        console.log('xxxxxx maillll', error)
         return error;
     }
 };

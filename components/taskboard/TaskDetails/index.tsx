@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState } from "react";
 
 import { Options } from "@icons";
@@ -9,55 +10,62 @@ import { DeleteTask, TaskForm } from "@components/taskboard";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 import { CheckBox, Dropdown, Modal } from "@components/common";
 import { EContextMenuPosition, EDropdownPosition } from "@constants/enums";
+import { useGetTask, useUpdateSubTask, useGetBoardColumns, useUpdateTask } from "@hooks/useBoard";
 
-const sub = [
-    {
-        title: "Research competitor pricing and business models",
-        completed: true,
-    },
-    {
-        title: "Outline a business model that works for our solution",
-        completed: true,
-    },
-    {
-        title: "Talk to potential customers about our proposed solution and ask for fair price expectancy",
-        completed: false,
-    },
-];
-
-const options = [
-    {
-        value: "todo",
-        label: "Todo",
-    },
-    {
-        value: "doing",
-        label: "Doing",
-    },
-    {
-        value: "done",
-        label: "Done",
-    },
-    {
-        value: "review",
-        label: "Review",
-    },
-    {
-        value: "closed",
-        label: "Closed",
-    },
-]
-
-const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTaskId }: ITaskDetails) => {
+const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTaskId, boardId }: ITaskDetails) => {
     const { isMobile } = useWindowDimensions();
     const [editTask, setEditTask] = useState(false);
     const [showOptions, setShowOptions] = useState(false);
     const [showDeleteTask, setShowDeleteTask] = useState(false);
-    const [currentStatus, setCurrentStatus] = useState("Doing");
+
+    const { data: task, isLoading } = useGetTask(currentTaskId);
+    const { mutateAsync: updateSubTask } = useUpdateSubTask(currentTaskId);
+    const { mutateAsync: updateTask, isPending: isMoving } = useUpdateTask();
+    const { data: boardColumns = [] } = useGetBoardColumns(boardId);
+
+    const completedCount = task?.subTasks?.filter((s: any) => s.isCompleted).length ?? 0;
+    const totalCount = task?.subTasks?.length ?? 0;
+
+    // Build column options from the real board columns
+    const columnOptions = boardColumns.map((col: any) => ({
+        value: col.id,
+        label: col.name,
+    }));
+
+    // Resolve the label of the column the task currently lives in
+    const activeColumnLabel =
+        columnOptions.find((opt: any) => opt.value === task?.boardColumnId)?.label ?? "";
+
+    const handleSubTaskToggle = async (subTaskId: string, isCompleted: boolean) => {
+        try {
+            await updateSubTask({ subTaskId, isCompleted: !isCompleted });
+        } catch (error: any) {
+            toast.error(error);
+        }
+    };
+
+    const handleColumnChange = async (selected: { value: string; label: string }) => {
+        if (!task || selected.value === task.boardColumnId) return;
+        try {
+            await updateTask({
+                taskId: currentTaskId,
+                title: task.title,
+                description: task.description ?? "",
+                boardColumnId: selected.value,
+                subTasks: task.subTasks?.map((s: any) => ({
+                    id: s.id,
+                    title: s.title,
+                    isEditing: false,
+                    isDeleting: false,
+                })) ?? [],
+            });
+        } catch (error: any) {
+            toast.error(error);
+        }
+    };
 
     return (
         <>
-
             <Modal
                 isOpen={displayTask}
                 onClose={() => {
@@ -65,7 +73,7 @@ const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTas
                     setCurrentTaskId(null);
                 }}
                 header={{
-                    left: currentTaskId,
+                    left: isLoading ? "Loading…" : task?.title,
                     right: (
                         <ContextMenu
                             position={isMobile ? EContextMenuPosition.LEFT : EContextMenuPosition.CENTER}
@@ -78,7 +86,7 @@ const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTas
                                         setShowOptions(false);
                                         setDisplayTask(false);
                                         setEditTask(true);
-                                    }
+                                    },
                                 },
                                 {
                                     label: "Delete Task",
@@ -87,51 +95,79 @@ const TaskDetails = ({ displayTask, setDisplayTask, currentTaskId, setCurrentTas
                                         setShowOptions(false);
                                         setShowDeleteTask(true);
                                     },
-                                    isDestructive: true
-                                }
-
+                                    isDestructive: true,
+                                },
                             ]}
                         >
                             <Options />
                         </ContextMenu>
-                    )
+                    ),
                 }}
             >
-                <p className="text-[13px] leading-[23px] font-medium text-gray-828FA3">
-                    We know what we&apos;re planning to build for version one. Now we need to finalise the first pricing model we&apos;ll use. Keep iterating the subtasks until we have a coherent proposition.
-                </p>
+                {isLoading ? (
+                    <div className="flex justify-center py-6">
+                        <svg className="animate-spin w-6 h-6 text-violet-635FC7" viewBox="0 0 24 24" fill="none">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                    </div>
+                ) : (
+                    <>
+                        {task?.description && (
+                            <p className="text-[13px] leading-[23px] font-medium text-gray-828FA3">
+                                {task.description}
+                            </p>
+                        )}
 
-                <div className="mt-6">
-                    <span className="block mb-4 text-xs leading-[15px] dark:text-white-FFFFFF text-gray-828FA3">Subtasks (2 of 3)</span>
+                        {totalCount > 0 && (
+                            <div className="mt-6">
+                                <span className="block mb-4 text-xs leading-[15px] dark:text-white-FFFFFF text-gray-828FA3">
+                                    Subtasks ({completedCount} of {totalCount})
+                                </span>
 
-                    <div className="flex gap-y-2 flex-col">
-                        {sub.map((item, index) => (
-                            <div key={index} className="dark:bg-black-20212C bg-white-F4F7FD hover:!bg-violet-635FC740 p-3 rounded">
-                                <CheckBox
-                                    value={item.completed}
-                                    label={item.title}
-                                    onChange={(value) => {
-                                    }}
+                                <div className="flex gap-y-2 flex-col">
+                                    {task?.subTasks?.map((sub: any) => (
+                                        <div key={sub.id} className="dark:bg-black-20212C bg-white-F4F7FD hover:!bg-violet-635FC740 p-3 rounded">
+                                            <CheckBox
+                                                value={sub.isCompleted}
+                                                label={sub.title}
+                                                onChange={() => handleSubTaskToggle(sub.id, sub.isCompleted)}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {columnOptions.length > 0 && (
+                            <div className="mt-6">
+                                <Dropdown
+                                    label={isMoving ? "Moving…" : "Current Status"}
+                                    options={columnOptions}
+                                    value={activeColumnLabel}
+                                    position={EDropdownPosition.TOP}
+                                    onChange={handleColumnChange}
                                 />
                             </div>
-                        ))}
-                    </div>
-                </div>
-
-                <div className="mt-6">
-                    <Dropdown
-                        options={options}
-                        value={currentStatus}
-                        label={"Current Status"}
-                        position={EDropdownPosition.TOP}
-                        onChange={(value) => setCurrentStatus(value.label)}
-                    />
-                </div>
+                        )}
+                    </>
+                )}
             </Modal>
-            <TaskForm showModal={editTask} currentTaskId={currentTaskId} setShowModal={setEditTask} />
-            <DeleteTask showModal={showDeleteTask} setShowModal={setShowDeleteTask} currentTaskId={currentTaskId} />
+
+            <TaskForm
+                showModal={editTask}
+                boardId={boardId}
+                currentTaskId={currentTaskId}
+                setShowModal={setEditTask}
+            />
+            <DeleteTask
+                showModal={showDeleteTask}
+                setShowModal={setShowDeleteTask}
+                taskId={currentTaskId}
+                taskTitle={task?.title ?? ""}
+            />
         </>
     );
-}
+};
 
 export default TaskDetails;

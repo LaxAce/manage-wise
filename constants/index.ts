@@ -1,9 +1,9 @@
 
 const constants = {
     maxMobileWidth: 640,
-    baseUrl: "http://localhost:2024/api/v1",
+    protectedRoutes: ["/board"],
+    baseUrl: process.env.NEXT_PUBLIC_BASE_URL ?? "",
     restrictedAuthRoutes: ["/login", "/register", "/verify-email", "/forgot_password", "/reset-password"],
-    protectedRoutes: ["/board",],
 };
 
 export default constants;

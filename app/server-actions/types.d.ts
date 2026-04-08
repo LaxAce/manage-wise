@@ -91,3 +91,50 @@ export interface GetProposalPayload {
     startDate?: any;
     proposalId?: string;
 }
+
+export interface CreateBoardPayload {
+    name: string;
+    columns?: string[];
+}
+
+export interface CreateColumnPayload {
+    name: string;
+    boardId: string;
+}
+
+export interface CreateTaskPayload {
+    title: string;
+    subTasks?: string[];
+    description?: string;
+    boardColumnId: string;
+}
+
+export interface updateBoardPayload {
+    name: string;
+    boardId: string;
+    columns: {
+        id?: string;
+        name: string;
+        isEditing: boolean;
+        isDeleting: boolean;
+    }[];
+}
+
+export interface updateTaskPayload {
+    title: string;
+    description?: string;
+    subTasks?: {
+        id?: string;
+        title: string;
+        isEditing: boolean;
+        isDeleting: boolean;
+    }[];
+    boardColumnId: string;
+    taskId: string;
+}
+
+export interface updateSubTaskPayload {
+    subTaskId: string;
+    isCompleted: boolean;
+}
+
