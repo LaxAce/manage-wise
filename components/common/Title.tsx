@@ -23,7 +23,7 @@ const Title = () => {
         <h1 className="text-[clamp(2.2rem,6vw,4.5rem)] font-bold leading-[1.1] dark:text-white-FFFFFF text-black-000112 mb-6">
             If you did all you said
             <br />
-            you would do today,{" "}
+            you would do,{" "}
             <br className="hidden sm:block" />
             you will be{" "}
             <span

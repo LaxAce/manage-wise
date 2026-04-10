@@ -20,7 +20,7 @@ const features = [
   {
     icon: "🌙",
     title: "Built for You",
-    description: "Light or dark — Manage Wise adapts to your environment and mood.",
+    description: "Light or dark — Managelly adapts to your environment and mood.",
   },
   {
     icon: "🔒",
@@ -89,7 +89,7 @@ export default async function LandingPage() {
           <Title />
 
           <p className="text-lg text-gray-828FA3 max-w-xl mx-auto leading-relaxed mb-10">
-            Manage Wise is a Kanban-style task manager that helps you ship more,
+            Managelly is a Kanban-style task manager that helps you ship more,
             stress less, and stay in full control of your work.
           </p>
 
@@ -218,7 +218,7 @@ export default async function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-gray-E4EBFA dark:border-gray-3E3F4E py-8 px-6 text-center text-gray-828FA3 text-xs">
-        © {new Date().getFullYear()} Manage Wise. Built with purpose.
+        © {new Date().getFullYear()} Managelly. Built with purpose.
       </footer>
     </div>
   );
