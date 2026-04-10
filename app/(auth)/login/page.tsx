@@ -50,7 +50,7 @@ export default function LoginPage() {
     return (
         <AuthLayout
             title="Welcome back"
-            subtitle="Log in to your Manage Wise account and pick up where you left off."
+            subtitle="Log in to your Managelly account and pick up where you left off."
             footerText="Don't have an account?"
             footerLinkText="Create one"
             footerLinkHref="/register"

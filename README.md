@@ -1,3 +1,3 @@
 
-## Manage Wise
+## [Managelly](https://managelly.netlify.app/)
 

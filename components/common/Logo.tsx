@@ -12,7 +12,7 @@ const Logo = () => {
                     <div className="w-1.5 h-6 bg-violet-635FC7 rounded-full opacity-50 group-hover:h-4 duration-200 delay-100" />
                 </div>
                 <span className="hidden sm:flex text-xl font-bold dark:text-white-FFFFFF text-black-000112 group-hover:text-violet-635FC7 duration-200">
-                    Manage Wise
+                    Managelly
                 </span>
             </Link>
         </>
