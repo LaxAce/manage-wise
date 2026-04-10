@@ -26,7 +26,7 @@ export async function Client(params: ClientParamType): Promise<AxiosResponse<{ s
         'Content-Type': `${contentType}`
     };
 
-    const url = `${constants.baseUrl}${path}`;
+    const url = `${constants.baseUrl}/api/v1${path}`;
     const requestConfig: AxiosRequestConfig = {
         method,
         url,
